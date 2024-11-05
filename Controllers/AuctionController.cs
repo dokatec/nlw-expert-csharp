@@ -1,15 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
+using API.UseCase.Auctions.GetCurrent;
+using API.Entities;
 
-namespace Auction.Controllers;
+namespace API.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class AuctionController : ControllerBase
 {
     [HttpGet]
+    [ProducesResponseType(typeof(Auction), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public IActionResult GetCurrentAuction()
     {
-        return NotFound("Jhonatan Pacheco");
+        var useCase = new GetCurrentAuctionUseCase();
+
+        var result = useCase.Execute();
+        if (result is null)
+            return NoContent();
+
+        return Ok(result);
     }
 
 }

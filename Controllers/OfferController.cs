@@ -11,7 +11,7 @@ public class OfferController : ControllerBase
     [Route("{itemId}")]
     public IActionResult CreateOffer([FromRoute] int itemId)
     {
-        return Created();
+        return View(new Offer());
     }
 
 }
